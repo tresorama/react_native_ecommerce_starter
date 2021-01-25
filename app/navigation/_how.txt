@@ -1,0 +1,45 @@
+                              ScreenSplash
+
+
+                                                      ScreenHome
+
+                                                                                        ScreenProductLoop
+                                                                                  /     
+
+                              AppStack (Tab)          NavigatorProduct (Stack)       
+
+                                                                                  \
+                                                                                         ScreenProductDetails
+
+
+
+                   /
+                                                                                        ScreenCartSummary
+                                                                                 /     
+                     
+                                                      NavigatorCart (Stack)        
+
+
+
+                                                                                        ScreenAccountSummary
+                                                                                /     
+RootStack (Drawer)
+                                                      NavigatorAccount (Stack)      
+          
+                                                                                \    
+                                                                                        ScreenPlaeseRegister 
+
+
+                    \  
+    
+
+                                                          ScreenWelcome
+
+                                                     /
+
+
+                                  AuthStack (Stack)         -     ScreenLogin
+
+
+                                                     \
+                                                          ScreenRegister
