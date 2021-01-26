@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { isArray } from "../js-helpers/getTypeOf";
 
 /* =================================================== 
@@ -15,11 +16,11 @@ const Find = (key, value, tester) => {
   }
   return false;
 };
-// Match two FILTER , return if key,value are same
+// Match two FILTER against, return if key,value are same
 const TwoFiltersAreEqual = (f1, f2) => f1.key === f2.key && f1.value === f2.value;
 
-// Build FILTERS_STORE
-const BuildFiltersStore = (taxonomies_store) => {
+// Build FILTERS_STORE from Taxonomies_store
+const BuildFiltersStore = (taxonomies_store = []) => {
   let filters = [];
   // foreach taxonomy ....
   taxonomies_store.forEach((tax) => {
@@ -109,19 +110,26 @@ const OrderProductsToShow = (products) => {
       Implementation/framework logic, 
       Encapsulating state and effects here
 =================================================== */
-const useFilterProducts = (products_store = [], taxonomies_store = []) => {
-  const getDefault = () => {
+const useFilterProducts = (products_store, taxonomies_store) => {
+  // build state derived by props ( products_store, taxonomies_store ).
+  const buildState = () => {
     const filters_store = BuildFiltersStore(taxonomies_store);
     return {
-      products_store: products_store,
-      products: products_store,
-      taxonomies_store: taxonomies_store,
-      filters_store: filters_store,
-      filters: filters_store,
+      products_store: products_store ? products_store : [],
+      products: products_store ? products_store : [],
+      taxonomies_store: taxonomies_store ? taxonomies_store : [],
+      filters_store: filters_store ? filters_store : [],
+      filters: filters_store ? filters_store : [],
       filtersActive: [],
     };
   };
-  const [state, setState] = useState(getDefault);
+  // build state on first render..
+  const [state, setState] = useState(buildState());
+
+  // re build state only if "products_store" received as props is different than last time...
+  useEffect(() => {
+    setState(buildState());
+  }, [products_store]);
 
   const addFilter = (filterData) => {
     const { products_store, filters_store, filtersActive } = state;

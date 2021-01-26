@@ -92,25 +92,25 @@ const ProductsGrid = ({ products, onCardPress }) => (
   </>
 );
 
-export default ({ useFilterProductsData, onCardPress }) => {
+export default ({ _useFilterProducts, onCardPress }) => {
   const filtersModal = useModal(); // { isOpened, toggle(), open(), close() }
 
   return (
     <>
       <ScrollView>
-        <ProductsGrid {...useFilterProductsData} onCardPress={onCardPress} />
+        <ProductsGrid {..._useFilterProducts} onCardPress={onCardPress} />
       </ScrollView>
       <FilterModal
-        {...useFilterProductsData}
+        {..._useFilterProducts}
         opened={filtersModal.isOpened}
         onApplyPress={() => filtersModal.close()}
         onResetPress={() => {
-          useFilterProductsData.resetFilters();
+          _useFilterProducts.resetFilters();
           filtersModal.close();
         }}
       />
       <FiltersStatusBar
-        {...useFilterProductsData}
+        {..._useFilterProducts}
         showed={!filtersModal.isOpened}
         onFiltersPress={() => filtersModal.toggle()}
       />
